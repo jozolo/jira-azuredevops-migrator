@@ -393,6 +393,8 @@ namespace WorkItemImport
             }
             if (op == AttachmentOperation.ADD)
             {
+                if (wi.Relations == null) wi.Relations = new List<WorkItemRelation>();
+
                 WorkItemRelation attachmentRelation = new WorkItemRelation();
                 attachmentRelation.Rel = "AttachedFile";
                 attachmentRelation.Attributes = new Dictionary<string, object>();

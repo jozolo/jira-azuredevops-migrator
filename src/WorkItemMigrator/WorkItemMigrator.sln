@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32421.90
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.WIContract", "Migration.WIContract\Migration.WIContract.csproj", "{19B3AF60-8BE6-47FC-9911-7829455B3557}"
 EndProject
@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.Jira-Export.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.Common.Tests", "tests\Migration.Common.Tests\Migration.Common.Tests.csproj", "{14911A7A-198D-43AD-8E93-D79A3DBBB15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Wi-Import.Tests", "tests\Migration.Wi-Import.Testss\Migration.Wi-Import.Tests.csproj", "{C6099BD7-3590-4E7E-9A7B-5889E33532D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.Wi-Import.Tests", "tests\Migration.Wi-Import.Testss\Migration.Wi-Import.Tests.csproj", "{C6099BD7-3590-4E7E-9A7B-5889E33532D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wiki-import", "wiki-import\wiki-import.csproj", "{C7D19D76-8D12-4DE0-8772-6A6F5712637A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wiki-import.Tests", "wiki-import.Tests\wiki-import.Tests.csproj", "{087159DD-20B3-48B1-87EE-A0E244C9C9DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{C6099BD7-3590-4E7E-9A7B-5889E33532D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6099BD7-3590-4E7E-9A7B-5889E33532D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6099BD7-3590-4E7E-9A7B-5889E33532D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D19D76-8D12-4DE0-8772-6A6F5712637A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D19D76-8D12-4DE0-8772-6A6F5712637A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D19D76-8D12-4DE0-8772-6A6F5712637A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D19D76-8D12-4DE0-8772-6A6F5712637A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{087159DD-20B3-48B1-87EE-A0E244C9C9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{087159DD-20B3-48B1-87EE-A0E244C9C9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{087159DD-20B3-48B1-87EE-A0E244C9C9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{087159DD-20B3-48B1-87EE-A0E244C9C9DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,7 @@ Global
 		{2624FD33-9DDD-4954-952D-1ABEDA9ADA99} = {EBEF05DA-E3C1-49DA-A411-2669F8C34BDC}
 		{14911A7A-198D-43AD-8E93-D79A3DBBB15E} = {EBEF05DA-E3C1-49DA-A411-2669F8C34BDC}
 		{C6099BD7-3590-4E7E-9A7B-5889E33532D3} = {EBEF05DA-E3C1-49DA-A411-2669F8C34BDC}
+		{087159DD-20B3-48B1-87EE-A0E244C9C9DE} = {EBEF05DA-E3C1-49DA-A411-2669F8C34BDC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C79F9C98-4D90-4590-A3F5-1D49EEAE40C0}

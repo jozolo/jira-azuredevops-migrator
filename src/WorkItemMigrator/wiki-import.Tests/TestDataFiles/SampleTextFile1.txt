@@ -1,0 +1,3 @@
+﻿This is a simple text file with just simple ascii text inside. 
+
+Nothing to see here, people, move along. 
