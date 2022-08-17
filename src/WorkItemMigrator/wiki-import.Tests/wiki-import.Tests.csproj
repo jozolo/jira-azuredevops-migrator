@@ -65,7 +65,9 @@
     <None Include="TestDataFiles\attachments\159974822\161290024.xlsm" />
     <None Include="TestDataFiles\attachments\159974822\270422304.doc" />
     <None Include="TestDataFiles\attachments\159974822\276365496.xlsm" />
+    <None Include="TestDataFiles\attachments\210075684\210075687.xlsm" />
     <None Include="TestDataFiles\INT214-Huntington-ACH-CTX-Outbound_159974822.md" />
+    <None Include="TestDataFiles\INT235-SymPro-Integration-Specification---Journal-Connector-Inbound_210075684.md" />
     <None Include="TestDataFiles\SampleFile1.xlsx" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +82,7 @@
     <Content Include="TestDataFiles\INT214-Huntington-ACH-CTX-Outbound_159974822.html" />
     <Content Include="TestDataFiles\SampleTextFile1.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

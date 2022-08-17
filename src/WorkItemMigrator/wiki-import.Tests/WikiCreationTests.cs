@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WikiImport;
 
@@ -15,7 +16,7 @@ namespace wiki_import.Tests
     {
 
         private static HttpClient client = new HttpClient();
-        private static string token = "r23zw5zijqxp2x3555pvspzqasyuw6unq5pq2ezm6jxga7kvy65q";
+        private static string token = "gbeqxloyd7hxj3yyiij5dpd7isc5co3e4us5dm6epadpa3oidtva";
         string _wikiNameUnitTest = "Created By Unit Test";
         string _wikiNameReal = "Export-from-Confluence";
         Guid _wikiGuidReal = new Guid("a0e03275-48b6-4691-ad52-a045df9182d2");
@@ -83,7 +84,22 @@ namespace wiki_import.Tests
         }
 
         [TestMethod]
-        public async Task TestCreateNewWikiPage_2MDContent()
+        public async Task TestCreateNewWikiPage_1HTMLContent()
+        {
+            wikiMapping.WikiID = _wikiGuidReal;
+            wikiMapping.WikiName = _wikiNameReal;
+
+            string pagePath = "unit-test-html-page";
+            string sContent = ReadTextFile("../../TestDataFiles/2019-05-30-Hartford-Integration-Meeting-notes_82346262.html");
+
+            Task<string> taskInsert = ImportCommandLine.CreateWikiPage(wikiMapping, pagePath, sContent);
+            string actual = await taskInsert;
+
+            Assert.AreEqual($"/{pagePath}", actual);
+        }
+
+        [TestMethod]
+        public async Task TestCreateNewWikiPage_3MDContent()
         {
             wikiMapping.WikiID = _wikiGuidReal;
             wikiMapping.WikiName = _wikiNameReal;
@@ -97,20 +113,39 @@ namespace wiki_import.Tests
             Assert.AreEqual($"/{pagePath}", actual);
         }
 
+
         [TestMethod]
-        public async Task TestCreateNewWikiPage_3HTMLContent()
+        public async Task TestCreateNewWikiPage_4_Attachment()
         {
             wikiMapping.WikiID = _wikiGuidReal;
             wikiMapping.WikiName = _wikiNameReal;
 
-            string pagePath = "unit-test-html-page";
-            string sContent = ReadTextFile("../../TestDataFiles/2019-05-30-Hartford-Integration-Meeting-notes_82346262.html");
+            string pagePath = "INT235-SymPro-Integration-Specification---Journal-Connector-Inbound_210075684";
+            string sContent = ReadTextFile($"../../TestDataFiles/{pagePath}.md");
 
+            // Find all attachments
+            List<string> attachments = FindAttachments(sContent);
+
+            // Upload all attachments
+            foreach (string attachment in attachments)
+            {
+                string fileContents = ReadBinaryFileAsString($"../../TestDataFiles/attachments/{attachment}");
+
+                Task<string> taskUpload = ImportCommandLine.UploadAttachment(wikiMapping, attachment, fileContents);
+                string actual = await taskUpload;
+            }
+
+            // Update the originally exported Wiki content to refer to the new ADO attachment path
+            sContent = UpdateAttachmentLocations(sContent, "");
+
+
+            // Now, upload the Wiki page which should hopefully be pointing to correct attachment path.
             Task<string> taskInsert = ImportCommandLine.CreateWikiPage(wikiMapping, pagePath, sContent);
-            string actual = await taskInsert;
+            string actualPageUpload = await taskInsert;
 
-            Assert.AreEqual($"/{pagePath}", actual);
+            Assert.AreEqual($"/{pagePath}", actualPageUpload);
         }
+
 
         [TestMethod]
         public async Task TestCreateAttachment_Binary()
@@ -257,6 +292,55 @@ namespace wiki_import.Tests
                 Console.WriteLine(ex.ToString());
             }
         }
+
+
+        public static string UpdateAttachmentLocations(string WikiPageContents, string FileLocation)
+        {
+            WikiPageContents.Replace("(/tapp-confluence/download/attachments", "(./attachments");
+            WikiPageContents.Replace("?api=v2 ", "");
+
+            return WikiPageContents;
+        }
+
+        [TestMethod]
+        public void FindAttachments()
+        {
+            string sContent = ReadTextFile("../../TestDataFiles/INT235-SymPro-Integration-Specification---Journal-Connector-Inbound_210075684.md");
+
+            List<string> attachments = FindAttachments(sContent);
+
+            Assert.IsTrue(attachments.Count > 0);
+            Assert.AreEqual("210075684/210075687.xlsm", attachments[0]);
+        }
+
+        public static List<string> FindAttachments(string WikiPageContents)
+        {
+            List<string> Filenames = new List<string>();
+
+            string[] lines = Regex.Split(WikiPageContents, Environment.NewLine);
+            //string[] lines = WikiPageContents.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string line in lines)
+            {
+                // Extract the string that is located between "(attachments/" and ")"
+                if (line.Contains("](attachments/"))
+                {
+                    Console.WriteLine("Breakpoint");
+
+                    try
+                    {
+                        string s = line.Substring(line.IndexOf("](attachments/") + "](attachments/".Length);
+                        s = s.Substring(0, s.IndexOf(")"));
+
+                        Filenames.Add(s);
+                    }
+                    catch (Exception) { }
+                }
+            }
+
+            return Filenames;
+        }
+
 
         private static string ReadTextFile(string FileName)
         {
