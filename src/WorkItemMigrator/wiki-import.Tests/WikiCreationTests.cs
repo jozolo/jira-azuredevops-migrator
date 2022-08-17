@@ -16,12 +16,13 @@ namespace wiki_import.Tests
     {
 
         private static HttpClient client = new HttpClient();
-        private static string token = "gbeqxloyd7hxj3yyiij5dpd7isc5co3e4us5dm6epadpa3oidtva";
         string _wikiNameUnitTest = "Created By Unit Test";
         string _wikiNameReal = "Export-from-Confluence";
         Guid _wikiGuidReal = new Guid("a0e03275-48b6-4691-ad52-a045df9182d2");
 
+        private static string token = System.Configuration.ConfigurationManager.AppSettings["AzureDevOpsPAT"];
         private WikiMapping wikiMapping = new WikiMapping("palazzoloj", "Workday", token);
+
 
         [TestInitialize]
         public void InitialzeHTTPClient()
