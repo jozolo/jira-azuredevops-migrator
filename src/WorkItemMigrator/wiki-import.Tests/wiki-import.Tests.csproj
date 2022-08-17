@@ -79,6 +79,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="TestDataFiles\attachments\159974822\164040738.png" />
     <Content Include="TestDataFiles\2019-05-30-Hartford-Integration-Meeting-notes_82346262.html" />
     <Content Include="TestDataFiles\INT214-Huntington-ACH-CTX-Outbound_159974822.html" />
