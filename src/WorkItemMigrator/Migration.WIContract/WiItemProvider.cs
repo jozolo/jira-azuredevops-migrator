@@ -57,6 +57,8 @@ namespace Migration.WIContract
             {
                 try
                 {
+                    if (filePath.EndsWith("config.json")) continue;
+
                     result.Add(LoadFile(filePath));
                 }
                 catch (Exception)
